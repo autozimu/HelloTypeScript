@@ -28,7 +28,7 @@ const common = {
             },
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                loaders: ['react-hot', 'ts'],
                 include: PATHS.app
             }
         ]
