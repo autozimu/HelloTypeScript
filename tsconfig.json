@@ -5,8 +5,6 @@
     "jsx": "react"
   },
   "files": [
-    "app/index.tsx",
-    "app/component.ts",
-    "app/require.d.ts"
+    "app/index.tsx"
   ]
 }
