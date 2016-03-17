@@ -1,8 +1,10 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "outDir": "build"
   },
   "files": [
     "app/index.tsx"
