@@ -1,5 +1,3 @@
-/// <reference path='../typings/tsd.d.ts' />
-
 import './main.css';
 
 import React = require('react');
