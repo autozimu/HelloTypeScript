@@ -17,7 +17,7 @@ const common = {
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['', '.ts', '.js']
+        extensions: ['', '.ts', '.tsx', '.js', '.jsx']
     },
     module: {
         loaders: [
@@ -27,7 +27,7 @@ const common = {
                 include: PATHS.app
             },
             {
-                test: /\.ts$/,
+                test: /\.tsx?$/,
                 loader: 'ts-loader',
                 include: PATHS.app
             }
