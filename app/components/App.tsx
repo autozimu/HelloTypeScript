@@ -1,11 +1,7 @@
 import React = require('react');
-import Note = require('./Note.tsx');
 import uuid = require('node-uuid');
-
-interface INote {
-    id: string,
-    task: string
-}
+import Note = require('./Note');
+import INote = require("../models/INote");
 
 interface IAppStates {
     notes: Array<INote>
@@ -41,7 +37,9 @@ class App extends React.Component<{}, IAppStates> {
                 <button onClick={this.addNote}>+</button>
 
                 <ul>{notes.map(note =>
-                <li key={note.id}>{note.task}</li>
+                <li key={note.id}>
+                    <Note task={note.task} />
+                </li>
                     )}</ul>
             </div>
         );
