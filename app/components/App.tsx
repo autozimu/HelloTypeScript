@@ -1,13 +1,13 @@
-import React = require('react');
-import uuid = require('node-uuid');
-import Note = require('./Note');
-import INote = require("../models/INote");
+import * as React from 'react';
+import * as uuid from 'node-uuid'
+import {Note} from './Note'
+import {INote} from '../models/INote'
 
 interface IAppStates {
     notes: Array<INote>
 }
 
-class App extends React.Component<{}, IAppStates> {
+export class App extends React.Component<{}, IAppStates> {
     constructor(props) {
         super(props);
 
@@ -57,5 +57,3 @@ class App extends React.Component<{}, IAppStates> {
         });
     };
 }
-
-export = App;

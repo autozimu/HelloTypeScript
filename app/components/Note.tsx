@@ -1,3 +1,3 @@
-import React = require('react');
+import * as React from 'react';
 
-export = (props: {task: string}) => <div>{props.task}</div>;
+export const Note = (props: {task: string}) => <div>{props.task}</div>;
