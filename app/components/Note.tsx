@@ -1,3 +1,15 @@
 import * as React from 'react';
 
-export const Note = (props: {task: string}) => <div>{props.task}</div>;
+interface INoteProps {
+    task: string
+}
+
+export class Note extends React.Component<INoteProps, {}> {
+    constructor(props: INoteProps) {
+        super(props);
+    }
+
+    render() {
+        return <div>{this.props.task}</div>;
+    }
+}

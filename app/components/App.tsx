@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as uuid from 'node-uuid'
-import {Note} from './Note'
-import {INote} from '../models/INote'
+import { Notes } from './Notes'
+import { INote } from '../models/INote'
 
 interface IAppStates {
     notes: Array<INote>
@@ -30,17 +30,13 @@ export class App extends React.Component<{}, IAppStates> {
     }
 
     render() {
-        const notes = this.state.notes;
+        const { notes } = this.state;
 
         return (
             <div>
                 <button onClick={this.addNote}>+</button>
 
-                <ul>{notes.map(note =>
-                <li key={note.id}>
-                    <Note task={note.task} />
-                </li>
-                    )}</ul>
+                <Notes notes={notes} />
             </div>
         );
     }
