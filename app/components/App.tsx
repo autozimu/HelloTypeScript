@@ -4,7 +4,7 @@ import { Notes } from './Notes'
 import { INote } from '../models/INote'
 
 interface IAppStates {
-    notes: Array<INote>
+    notes: Array<INote>;
 }
 
 export class App extends React.Component<{}, IAppStates> {
@@ -36,7 +36,10 @@ export class App extends React.Component<{}, IAppStates> {
             <div>
                 <button onClick={this.addNote}>+</button>
 
-                <Notes notes={notes} />
+                <Notes
+                    notes={notes}
+                    onEdit={this.editNote}
+                />
             </div>
         );
     }
@@ -51,5 +54,21 @@ export class App extends React.Component<{}, IAppStates> {
                 }
             ]
         });
+    };
+
+    editNote = (id, task) => {
+        if (!task.trim()) {
+            return;
+        }
+
+        const notes = this.state.notes.map(note => {
+           if (note.id === id && task) {
+               note.task = task;
+           }
+
+            return note
+        });
+
+        this.setState({notes});
     };
 }

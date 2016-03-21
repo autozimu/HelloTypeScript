@@ -1,4 +1,4 @@
 export interface INote {
-    id: string,
-    task: string
+    id: string;
+    task: string;
 }
