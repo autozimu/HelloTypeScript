@@ -42,14 +42,20 @@ export class Note extends React.Component<INoteProps, INoteStates> {
     renderNote() {
         return (
             <div onClick={this.edit}>
-                <span>{this.props.task}</span>
+                <span className="task">{this.props.task}</span>
                 {this.renderDelete()}
             </div>
         );
     }
 
     renderDelete = () => {
-        return <button onClick={this.props.onDelete}>x</button>;
+        return (
+            <button
+                className="delete-note"
+                onClick={this.props.onDelete}>
+                x
+            </button>
+        );
     };
 
     edit = () => {

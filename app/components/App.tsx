@@ -34,7 +34,11 @@ export class App extends React.Component<{}, IAppStates> {
 
         return (
             <div>
-                <button onClick={this.addNote}>+</button>
+                <button
+                    className="add-note"
+                    onClick={this.addNote}>
+                    +
+                </button>
 
                 <Notes
                     notes={notes}

@@ -15,8 +15,8 @@ export class Notes extends React.Component<INotesProps, {}> {
 
     render() {
         return (
-            <ul>{this.props.notes.map(note =>
-                <li key={note.id}>
+            <ul className="notes">{this.props.notes.map(note =>
+                <li className="note" key={note.id}>
                     <Note
                         task={note.task}
                         onEdit={this.props.onEdit.bind(null, note.id)}
