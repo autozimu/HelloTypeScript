@@ -3,6 +3,7 @@ import * as React from 'react';
 interface INoteProps {
     task: string;
     onEdit(value: string): void;
+    onDelete(): void;
 }
 
 interface INoteStates {
@@ -41,10 +42,15 @@ export class Note extends React.Component<INoteProps, INoteStates> {
     renderNote() {
         return (
             <div onClick={this.edit}>
-                {this.props.task}
+                <span>{this.props.task}</span>
+                {this.renderDelete()}
             </div>
         );
     }
+
+    renderDelete = () => {
+        return <button onClick={this.props.onDelete}>x</button>;
+    };
 
     edit = () => {
         this.setState({
@@ -61,9 +67,7 @@ export class Note extends React.Component<INoteProps, INoteStates> {
     finishEdit = (e) => {
         const value = e.target.value;
 
-        if (this.props.onEdit) {
-            this.props.onEdit(value);
-        }
+        this.props.onEdit(value);
 
         this.setState({
             editing: false

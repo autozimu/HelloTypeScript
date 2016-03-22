@@ -39,6 +39,7 @@ export class App extends React.Component<{}, IAppStates> {
                 <Notes
                     notes={notes}
                     onEdit={this.editNote}
+                    onDelete={this.deleteNote}
                 />
             </div>
         );
@@ -70,5 +71,13 @@ export class App extends React.Component<{}, IAppStates> {
         });
 
         this.setState({notes});
+    };
+
+    deleteNote = (id, e) => {
+        e.stopPropagation();
+
+        this.setState({
+            notes: this.state.notes.filter(note => note.id !== id)
+        });
     };
 }
