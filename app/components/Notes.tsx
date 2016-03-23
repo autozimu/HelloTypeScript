@@ -4,8 +4,8 @@ import { INote } from "../models/INote";
 
 interface INotesProps {
     notes: Array<INote>;
-    onEdit(id: string, task: string): void;
-    onDelete(id: string, e: Event): void;
+    onUpdate(id: string, task: string): void;
+    onDelete(id: string): void;
 }
 
 export class Notes extends React.Component<INotesProps, {}> {
@@ -17,10 +17,10 @@ export class Notes extends React.Component<INotesProps, {}> {
         return (
             <ul className="notes">{this.props.notes.map(note =>
                 <li className="note" key={note.id}>
-                    <Note
-                        task={note.task}
-                        onEdit={this.props.onEdit.bind(null, note.id)}
-                        onDelete={this.props.onDelete.bind(null, note.id)}
+                    <Note id={note.id}
+                          task={note.task}
+                          onUpdate={this.props.onUpdate}
+                          onDelete={this.props.onDelete}
                     />
                 </li>
             )}</ul>

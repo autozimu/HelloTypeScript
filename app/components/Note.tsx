@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 interface INoteProps {
+    id: string;
     task: string;
-    onEdit(value: string): void;
-    onDelete(): void;
+    onUpdate(id: string, task: string): void;
+    onDelete(id: string): void;
 }
 
 interface INoteStates {
@@ -50,9 +51,8 @@ export class Note extends React.Component<INoteProps, INoteStates> {
 
     renderDelete = () => {
         return (
-            <button
-                className="delete-note"
-                onClick={this.props.onDelete}>
+            <button className="delete-note"
+                    onClick={() => this.props.onDelete(this.props.id)}>
                 x
             </button>
         );
@@ -73,7 +73,7 @@ export class Note extends React.Component<INoteProps, INoteStates> {
     finishEdit = (e) => {
         const value = e.target.value;
 
-        this.props.onEdit(value);
+        this.props.onUpdate(this.props.id, value);
 
         this.setState({
             editing: false

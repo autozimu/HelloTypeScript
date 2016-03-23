@@ -2,11 +2,13 @@
   "name": "HelloTypeScript",
   "version": false,
   "ambientDependencies": {
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
+    "node-uuid": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
+    "node-uuid-base": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-base.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
+    "node-uuid-cjs": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-cjs.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
     "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#2f47c75835b837777a85287611703d683b0aaa83",
     "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#2f47c75835b837777a85287611703d683b0aaa83",
-    "node-uuid": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
-    "node-uuid-base": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-base.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156",
-    "node-uuid-cjs": "github:DefinitelyTyped/DefinitelyTyped/node-uuid/node-uuid-cjs.d.ts#cc3d223a946f661eff871787edeb0fcb8f0db156"
+    "react-redux": "registry:dt/react-redux#4.4.0+20160316155526",
+    "redux": "registry:dt/redux#1.0.0+20160317120654"
   }
 }

@@ -1,87 +1,37 @@
 import * as React from 'react';
-import * as uuid from 'node-uuid'
+import {Dispatch} from 'redux';
 import { Notes } from './Notes'
 import { INote } from '../models/INote'
+import {addNote, deleteNote, updateNote} from "../actions";
 
-interface IAppStates {
+interface IAppProps {
     notes: Array<INote>;
+    dispatch: Dispatch;
 }
 
-export class App extends React.Component<{}, IAppStates> {
+interface IAppStates {
+}
+
+export class App extends React.Component<IAppProps, IAppStates> {
     constructor(props) {
         super(props);
-
-        this.state = {
-            notes: [
-            {
-                id: uuid.v4(),
-                task: 'Learn Webpack'
-            },
-            {
-                id: uuid.v4(),
-                task: 'Learn React'
-            },
-            {
-                id: uuid.v4(),
-                task: 'Do laundry'
-            }
-        ]
-        }
     }
 
     render() {
-        const { notes } = this.state;
+        const { notes } = this.props;
 
         return (
             <div>
-                <button
-                    className="add-note"
-                    onClick={this.addNote}>
+                <button className="add-note"
+                        onClick={() => this.props.dispatch(addNote())}>
                     +
                 </button>
 
-                <Notes
-                    notes={notes}
-                    onEdit={this.editNote}
-                    onDelete={this.deleteNote}
+                <Notes notes={notes}
+                       onUpdate={(id, task) => this.props.dispatch(updateNote(id, task))}
+                       onDelete={(id) => this.props.dispatch(deleteNote(id))}
                 />
             </div>
         );
     }
-
-    addNote = () => {
-        this.setState({
-            notes: [
-                ...this.state.notes,
-                {
-                    id: uuid.v4(),
-                    task: 'New task'
-                }
-            ]
-        });
-    };
-
-    editNote = (id, task) => {
-        if (!task.trim()) {
-            return;
-        }
-
-        const notes = this.state.notes.map(note => {
-           if (note.id === id && task) {
-               note.task = task;
-           }
-
-            return note
-        });
-
-        this.setState({notes});
-    };
-
-    deleteNote = (id, e) => {
-        e.stopPropagation();
-
-        this.setState({
-            notes: this.state.notes.filter(note => note.id !== id)
-        });
-    };
 }
