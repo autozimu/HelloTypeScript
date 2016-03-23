@@ -3,27 +3,27 @@ import uuid = require("node-uuid");
 import {INote} from "./models/INote";
 import {combineReducers} from 'redux';
 
-function notes(state: Array<INote> = [], action: IAction) {
+function notesReducer(notes: Array<INote> = [], action: IAction) {
     switch (action.type) {
         case ADD_NOTE:
-            return state.concat([{
+            return notes.concat([{
                     id: uuid.v4(),
                     task: 'New task'
                 }]);
         case DELETE_NOTE:
-            return state.filter(note => note.id !== action.id);
+            return notes.filter(note => note.id !== action.id);
         case UPDATE_NOTE:
-            return state.map(note => {
+            return notes.map(note => {
                 if (note.id === action.id) {
                     note.task = action.task;
                 }
                 return note;
             });
         default:
-            return state;
+            return notes;
     }
 }
 
 export const AppReducer = combineReducers({
-    notes
+    notes: notesReducer
 });
