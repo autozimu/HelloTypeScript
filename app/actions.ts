@@ -4,10 +4,10 @@ export interface IAction {
     task: string;
 }
 
-export const ADD_NOTE= 'add note';
-export function addNote() {
+export const CREATE_NOTE= 'add note';
+export function createNote() {
     return {
-        type: ADD_NOTE
+        type: CREATE_NOTE
     };
 }
 

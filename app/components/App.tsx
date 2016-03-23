@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {Dispatch} from 'redux';
 import { Notes } from './Notes'
 import { INote } from '../models/INote'
-import {addNote, deleteNote, updateNote} from "../actions";
 
 interface IAppProps {
     notes: Array<INote>;
-    dispatch: Dispatch;
+    onCreate(): void;
+    onUpdate(id: string, task: string): void;
+    onDelete(id: string): void;
 }
 
 interface IAppStates {
@@ -23,13 +23,13 @@ export class App extends React.Component<IAppProps, IAppStates> {
         return (
             <div>
                 <button className="add-note"
-                        onClick={() => this.props.dispatch(addNote())}>
+                        onClick={this.props.onCreate}>
                     +
                 </button>
 
                 <Notes notes={notes}
-                       onUpdate={(id, task) => this.props.dispatch(updateNote(id, task))}
-                       onDelete={(id) => this.props.dispatch(deleteNote(id))}
+                       onUpdate={this.props.onUpdate}
+                       onDelete={this.props.onDelete}
                 />
             </div>
         );

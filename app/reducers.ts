@@ -1,11 +1,11 @@
-import {IAction, ADD_NOTE, DELETE_NOTE, UPDATE_NOTE} from "./actions";
+import {IAction, CREATE_NOTE, DELETE_NOTE, UPDATE_NOTE} from "./actions";
 import uuid = require("node-uuid");
 import {INote} from "./models/INote";
 import {combineReducers} from 'redux';
 
 function notesReducer(notes: Array<INote> = [], action: IAction) {
     switch (action.type) {
-        case ADD_NOTE:
+        case CREATE_NOTE:
             return notes.concat([{
                     id: uuid.v4(),
                     task: 'New task'
