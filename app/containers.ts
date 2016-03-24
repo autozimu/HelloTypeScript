@@ -1,14 +1,16 @@
+import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 import {App} from "./components/App";
 import {updateNote, deleteNote, createNote} from "./actions";
+import {IState} from "./models/IState";
 
-function mapStateToProps(state) {
+function mapStateToProps(state: IState) {
     return {
         notes: state.notes
     };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
     return {
         onCreate: () => dispatch(createNote()),
         onUpdate: (id, task) => dispatch(updateNote(id, task)),
