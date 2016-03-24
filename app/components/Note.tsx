@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 interface INoteProps {
     id: string;
@@ -65,7 +65,7 @@ export class Note extends React.Component<INoteProps, INoteStates> {
     };
 
     checkEnter = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             this.finishEdit(e);
         }
     };

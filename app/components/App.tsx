@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Notes } from './Notes'
-import { INote } from '../models/INote'
+import * as React from "react";
+import { Notes } from "./Notes";
+import { INote } from "../models/INote";
 
 interface IAppProps {
     notes: Array<INote>;

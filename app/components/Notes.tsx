@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Note } from './Note';
+import * as React from "react";
+import { Note } from "./Note";
 import { INote } from "../models/INote";
 
 interface INotesProps {
