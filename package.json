@@ -21,12 +21,12 @@
     "typings": "^0.7.9",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.8.3"
+    "webpack-merge": "^0.10.0"
   },
   "dependencies": {
     "node-uuid": "^1.4.7",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1"
   }
