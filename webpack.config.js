@@ -48,7 +48,7 @@ if (TARGET === 'start' || !TARGET) {
             host: process.env.HOST,
             port: process.env.PORT
         },
-        devtool: 'eval-source-map',
+        devtool: '#eval-source-map',
         plugins: [
             new webpack.HotModuleReplacementPlugin()
         ]
