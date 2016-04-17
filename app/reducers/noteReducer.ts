@@ -1,21 +1,26 @@
 import {INote} from "./../models/INote";
-import {INoteAction, CREATE_NOTE, DELETE_NOTE, UPDATE_NOTE} from "./../actions/noteActions";
+import {
+    CREATE_NOTE, ICreateNoteAction,
+    DELETE_NOTE, IUpdateNoteAction,
+    UPDATE_NOTE, IDeleteNoteAction
+} from "./../actions/noteActions";
+import {handleActions} from "redux-actions";
 
-export function noteReducer(notes: Array<INote> = [], action: INoteAction) {
-    switch (action.type) {
-        case CREATE_NOTE:
-            return notes.concat([action.note]);
-        case DELETE_NOTE:
-            return notes.filter(note => note.id !== action.note.id);
-        case UPDATE_NOTE:
-            return notes.map(note => {
-                if (note.id === action.note.id) {
-                    note.task = action.note.task;
-                }
-                return note;
-            });
-        default:
-            return notes;
-    }
-}
-
+export const noteReducer = handleActions({
+    [CREATE_NOTE]: (notes: Array<INote>, action: ICreateNoteAction) => (
+        notes.concat(action.payload)
+    ),
+    
+    [UPDATE_NOTE]: (notes: Array<INote>, action: IUpdateNoteAction) => (
+        notes.map(note => {
+            if (note.id === action.payload.id) {
+                note.task = action.payload.task;
+            }
+            return note;
+        })
+    ),
+    
+    [DELETE_NOTE]: (notes: Array<INote>, action: IDeleteNoteAction) => (
+        notes.filter(note => note.id !== action.payload.id)
+    ),
+}, []);

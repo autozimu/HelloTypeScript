@@ -4,7 +4,8 @@
     "module": "commonjs",
     "sourceMap": true,
     "jsx": "react",
-    "outDir": "build"
+    "outDir": "build",
+    "experimentalDecorators": true
   },
   "files": [
     "typings/main.d.ts",

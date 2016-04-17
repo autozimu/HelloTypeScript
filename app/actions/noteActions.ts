@@ -1,34 +1,43 @@
 import * as uuid from "node-uuid";
-import {INote} from "../models/INote";
-
-export interface INoteAction {
-    type: string;
-    note: INote;
-}
+import {IAction} from "./IAction";
 
 export const CREATE_NOTE = "create note";
-export function createNote(): INoteAction {
+export interface ICreateNoteAction extends IAction {
+    payload: {
+        id: string;
+        task: string;
+    }
+}
+export function createNote(id, task): ICreateNoteAction {
     return {
         type: CREATE_NOTE,
-        note: {
-            id: uuid.v4(),
-            task: "New task"
-        }
+        payload: {id, task}
     };
 }
 
 export const UPDATE_NOTE = "update note";
-export function updateNote(id: string, task: string): INoteAction {
+export interface IUpdateNoteAction extends IAction {
+    payload: {
+        id: string;
+        task: string;
+    }
+}
+export function updateNote(id: string, task: string): IUpdateNoteAction {
     return {
         type: UPDATE_NOTE,
-        note: {id, task}
+        payload: {id, task}
     };
 }
 
 export const DELETE_NOTE = "delete note";
-export function deleteNote(id: string): INoteAction {
+export interface IDeleteNoteAction extends IAction {
+    payload: {
+        id: string;
+    }
+}
+export function deleteNote(id: string): IDeleteNoteAction {
     return {
         type: DELETE_NOTE,
-        note: {id, task: ""}
+        payload: {id}
     };
 }

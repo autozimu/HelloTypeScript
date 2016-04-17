@@ -1,13 +1,16 @@
 import * as React from "react";
-import { Note } from "./Note";
-import { INote } from "../models/INote";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
+import {INote} from "../models/INote";
+import {Editable} from "./Editable";
+import {updateNote, deleteNote} from "../actions/noteActions";
 
 interface INotesProps {
     notes: Array<INote>;
-    onUpdate(id: string, task: string): void;
-    onDelete(id: string): void;
+    dispatch?: Dispatch;
 }
 
+@connect()
 export class Notes extends React.Component<INotesProps, {}> {
     constructor(props: INotesProps) {
         super(props);
@@ -17,10 +20,10 @@ export class Notes extends React.Component<INotesProps, {}> {
         return (
             <ul className="notes">{this.props.notes.map(note =>
                 <li className="note" key={note.id}>
-                    <Note id={note.id}
-                          task={note.task}
-                          onUpdate={this.props.onUpdate}
-                          onDelete={this.props.onDelete}
+                    <Editable id={note.id}
+                              value={note.task}
+                              onUpdate={(id, task) => this.props.dispatch(updateNote(id, task))}
+                              onDelete={(id) => this.props.dispatch(deleteNote(id))}
                     />
                 </li>
             )}</ul>
