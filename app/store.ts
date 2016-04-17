@@ -14,8 +14,9 @@ const localStorageMiddleware = ({getState}) => {
 export const store = compose(
     applyMiddleware(
         localStorageMiddleware
-    )
-)(window["devToolsExtension"] ? window["devToolsExtension"]()(createStore) : createStore)(
+    ),
+    window["devToolsExtension"] ? window["devToolsExtension"]() : f => f
+)(createStore)(
     AppReducer,
     JSON.parse(localStorage.getItem(storeName)) || {}
 );
