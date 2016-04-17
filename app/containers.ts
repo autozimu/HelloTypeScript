@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {App} from "./components/App";
-import {updateNote, deleteNote, createNote} from "./actions";
+import {updateNote, deleteNote, createNote} from "./actions/noteActions";
 import {IState} from "./models/IState";
 
 function mapStateToProps(state: IState) {
