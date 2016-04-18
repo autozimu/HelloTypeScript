@@ -35,8 +35,5 @@ class AppComponent extends React.Component<IAppProps, {}> {
 }
 
 export const App = connect(
-    (state: IState) => ({
-        lanes: state.lanes,
-        notes: state.notes
-    })
+    (state: IState) => state
 )(AppComponent);
