@@ -1,18 +1,18 @@
+import {handleActions} from "redux-actions";
 import {ILane} from "../models/ILane";
 import {
     CREATE_LANE, ICreateLaneAction,
-    UPDATE_LANE,IUpdateLaneAction,
+    UPDATE_LANE, IUpdateLaneAction,
     DELETE_LANE, IDeleteLaneAction,
     ATTACH_TO_LANE, IAttachToLaneAction,
-    DETACH_FROM_LANE,IDetachFromLaneAction
+    DETACH_FROM_LANE, IDetachFromLaneAction
 } from "../actions/laneActions";
-import {handleActions} from "redux-actions";
 
 export const laneReducer = handleActions({
     [CREATE_LANE]: (lanes: Array<ILane>, action: ICreateLaneAction) => (
         lanes.concat(action.payload.lane)
     ),
-    
+
     [UPDATE_LANE]: (lanes: Array<ILane>, action: IUpdateLaneAction) => (
         lanes.map(lane => {
             if (lane.id === action.payload.id) {
@@ -21,7 +21,7 @@ export const laneReducer = handleActions({
             return lane;
         })
     ),
-    
+
     [DELETE_LANE]: (lanes: Array<ILane>, action: IDeleteLaneAction) => (
         lanes.filter(lane => lane.id !== action.payload.id)
     ),

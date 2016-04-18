@@ -11,7 +11,6 @@ import {attachToLane, updateLane, deleteLane} from "../actions/laneActions";
 interface ILaneProps {
     id: string;
     name: string;
-    noteIds: Array<string>;
     notes: Array<INote>;
     dispatch?: Dispatch;
 }
@@ -21,7 +20,7 @@ export class Lane extends React.Component<ILaneProps, {}> {
     constructor(props: ILaneProps) {
         super(props);
     }
-    
+
     createNote() {
         const note = {
             id: uuid.v4(),
@@ -32,8 +31,6 @@ export class Lane extends React.Component<ILaneProps, {}> {
     }
 
     render() {
-        const notes = this.props.notes.filter(note => this.props.noteIds.indexOf(note.id) > -1);
-
         return (
             <div className="lane">
                 <div className="lane-header">
@@ -54,7 +51,7 @@ export class Lane extends React.Component<ILaneProps, {}> {
                         </button>
                     </div>
                 </div>
-                <Notes notes={notes} />
+                <Notes notes={this.props.notes} />
             </div>
         );
     }

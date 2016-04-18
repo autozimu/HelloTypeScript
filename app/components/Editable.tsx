@@ -14,7 +14,7 @@ interface IEditableStates {
 export class Editable extends React.Component<IEditableProps, IEditableStates> {
     constructor(props: IEditableProps) {
         super(props);
-        
+
         this.state = {
             editing: false
         };
@@ -49,7 +49,7 @@ export class Editable extends React.Component<IEditableProps, IEditableStates> {
             </button>
         );
     };
-    
+
     render() {
         if (this.state.editing) {
             return this.renderEdit();
@@ -57,7 +57,7 @@ export class Editable extends React.Component<IEditableProps, IEditableStates> {
             return this.renderValue();
         }
     }
-    
+
     click() {
         this.setState({
             editing: true
@@ -74,7 +74,7 @@ export class Editable extends React.Component<IEditableProps, IEditableStates> {
         this.setState({
             editing: false
         });
-        
+
         const value = e.target.value;
 
         if (!value) {
