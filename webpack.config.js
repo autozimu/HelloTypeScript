@@ -92,10 +92,11 @@ if (TARGET === 'build') {
         },
         plugins: [
             new PluginClean([PATHS.build]),
+            // Notify React of production build.
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"production"'
             }),
-            // Extract vendor and manifest files
+            // Extract vendor and manifest files.
             new webpack.optimize.CommonsChunkPlugin({
                 names: ['vendor', 'manifest']
             }),
