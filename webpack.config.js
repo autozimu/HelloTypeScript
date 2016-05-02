@@ -1,8 +1,9 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const WebpackPluginHTML = require('html-webpack-plugin');
-const WebpackPluginClean = require('clean-webpack-plugin');
+const PluginHTML = require('html-webpack-plugin');
+const PluginClean = require('clean-webpack-plugin');
+const PluginExtractText = require('extract-text-webpack-plugin');
 
 const pkg = require('./package.json');
 
@@ -26,11 +27,6 @@ const common = {
     module: {
         loaders: [
             {
-                test: /\.css$/,
-                loaders: ['style', 'css'],
-                include: PATHS.app
-            },
-            {
                 test: /\.tsx?$/,
                 loaders: ['react-hot', 'ts'],
                 include: PATHS.app
@@ -38,7 +34,7 @@ const common = {
         ]
     },
     plugins: [
-        new WebpackPluginHTML({
+        new PluginHTML({
             template: 'node_modules/html-webpack-template/index.ejs',
             title: 'Kanban app',
             appMountId: 'app',
@@ -50,6 +46,7 @@ const common = {
 // Default configuration
 if (TARGET === 'start' || !TARGET) {
     module.exports = merge(common, {
+        devtool: '#eval-source-map',
         devServer: {
             historyApiFallback: true,
             hot: true,
@@ -59,7 +56,15 @@ if (TARGET === 'start' || !TARGET) {
             host: process.env.HOST,
             port: process.env.PORT
         },
-        devtool: '#eval-source-map',
+        module: {
+            loaders: [
+                {
+                    test: /\.css$/,
+                    loaders: ['style', 'css'],
+                    include: PATHS.app
+                }
+            ]
+        },
         plugins: [
             new webpack.HotModuleReplacementPlugin()
         ]
@@ -76,8 +81,17 @@ if (TARGET === 'build') {
             filename: '[name].[chunkhash].js',
             chunkFilename: '[chunkhash].js'
         },
+        module: {
+            loaders: [
+                {
+                    test: /\.css$/,
+                    loader: PluginExtractText.extract('style', 'css'),
+                    include: PATHS.app
+                }
+            ]
+        },
         plugins: [
-            new WebpackPluginClean([PATHS.build]),
+            new PluginClean([PATHS.build]),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"production"'
             }),
@@ -89,7 +103,8 @@ if (TARGET === 'build') {
                 compress: {
                     warnings: false
                 }
-            })
+            }),
+            new PluginExtractText('[name].[chunkhash].css')
         ]
     });
 }
