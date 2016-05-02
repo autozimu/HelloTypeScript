@@ -1,7 +1,8 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPluginHTML = require('html-webpack-plugin');
+const WebpackPluginClean = require('clean-webpack-plugin');
 
 const pkg = require('./package.json');
 
@@ -37,7 +38,7 @@ const common = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
+        new WebpackPluginHTML({
             template: 'node_modules/html-webpack-template/index.ejs',
             title: 'Kanban app',
             appMountId: 'app',
@@ -76,6 +77,7 @@ if (TARGET === 'build') {
             chunkFilename: '[chunkhash].js'
         },
         plugins: [
+            new WebpackPluginClean([PATHS.build]),
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"production"'
             }),
