@@ -70,6 +70,11 @@ if (TARGET === 'build') {
         entry: {
             vendor: Object.keys(pkg.dependencies)
         },
+        output: {
+            path: PATHS.build,
+            filename: '[name].[chunkhash].js',
+            chunkFilename: '[chunkhash].js'
+        },
         plugins: [
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': '"production"'
