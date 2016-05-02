@@ -1,6 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -32,14 +33,21 @@ const common = {
                 include: PATHS.app
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'node_modules/html-webpack-template/index.ejs',
+            title: 'Kanban app',
+            appMountId: 'app',
+            inject: false
+        })
+    ]
 };
 
 // Default configuration
 if (TARGET === 'start' || !TARGET) {
     module.exports = merge(common, {
         devServer: {
-            contentBase: PATHS.build,
             historyApiFallback: true,
             hot: true,
             inline: true,
