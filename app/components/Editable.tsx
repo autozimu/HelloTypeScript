@@ -3,7 +3,6 @@ import * as React from "react";
 interface Props {
     value: string;
     onUpdate(value: string);
-    onDelete();
 }
 
 interface States {
@@ -47,7 +46,8 @@ export class Editable extends React.Component<Props, States> {
 
     renderEdit() {
         return (
-            <input type="text"
+            <input className="editable"
+                   type="text"
                    autoFocus={true}
                    defaultValue={this.props.value}
                    onKeyPress={(e) => this.checkEnter(e)}
@@ -58,19 +58,10 @@ export class Editable extends React.Component<Props, States> {
 
     renderValue() {
         return (
-            <div onClick={() => this.click()}>
-                <span className="value">{this.props.value}</span>
-                {this.props.onDelete ? this.renderDelete() : null}
-            </div>
-        );
-    }
-
-    renderDelete() {
-        return (
-            <button className="delete"
-                    onClick={() => this.props.onDelete()}>
-                x
-            </button>
+            <span className="value"
+                  onClick={() => this.click()}>
+                {this.props.value}
+            </span>
         );
     }
 

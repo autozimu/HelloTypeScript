@@ -20,11 +20,16 @@ class NotesComponent extends React.Component<Props, {}> {
         
         return (
             <ul className="notes">{this.props.notes.map(note =>
-                <li className="note" key={note.id}>
-                    <Editable value={note.task}
-                              onUpdate={(task) => dispatch(updateNote(note.id, task))}
-                              onDelete={() => dispatch(deleteNote(note.id))}
-                    />
+                <li key={note.id}>
+                    <div className="note">
+                        <Editable value={note.task}
+                                  onUpdate={(task) => dispatch(updateNote(note.id, task))}
+                        />
+                        <button className="delete"
+                                onClick={() => dispatch(deleteNote(note.id))}>
+                            x
+                        </button>
+                    </div>
                 </li>
             )}</ul>
         );
