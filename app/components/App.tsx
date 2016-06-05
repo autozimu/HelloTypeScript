@@ -7,8 +7,8 @@ import {INote} from "../models/INote";
 import {createLane} from "../actions/laneActions";
 
 interface IAppProps {
-    lanes: Array<ILane>;
-    notes: Array<INote>;
+    lanes: ILane[];
+    notes: INote[];
     dispatch: Dispatch;
 }
 

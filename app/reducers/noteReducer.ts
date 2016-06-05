@@ -7,20 +7,20 @@ import {
 } from "./../actions/noteActions";
 
 export const noteReducer = handleActions({
-    [CREATE_NOTE]: (notes: Array<INote>, action: ICreateNoteAction) => (
-        notes.concat(action.payload)
-    ),
+    [CREATE_NOTE]: function (notes: INote[], action: ICreateNoteAction): INote[] {
+        return notes.concat(action.payload);
+    },
 
-    [UPDATE_NOTE]: (notes: Array<INote>, action: IUpdateNoteAction) => (
-        notes.map(note => {
+    [UPDATE_NOTE]: function (notes: INote[], action: IUpdateNoteAction): INote[] {
+        return notes.map(note => {
             if (note.id === action.payload.id) {
                 note.task = action.payload.task;
             }
             return note;
-        })
-    ),
+        });
+    },
 
-    [DELETE_NOTE]: (notes: Array<INote>, action: IDeleteNoteAction) => (
-        notes.filter(note => note.id !== action.payload.id)
-    ),
+    [DELETE_NOTE]: function (notes: INote[], action: IDeleteNoteAction): INote[] {
+        return notes.filter(note => note.id !== action.payload.id);
+    },
 }, []);

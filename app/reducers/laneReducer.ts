@@ -9,43 +9,52 @@ import {
 } from "../actions/laneActions";
 
 export const laneReducer = handleActions({
-    [CREATE_LANE]: (lanes: Array<ILane>, action: ICreateLaneAction) => (
-        lanes.concat(action.payload.lane)
-    ),
+    [CREATE_LANE]: function (lanes: ILane[], action: ICreateLaneAction): ILane[] {
+        const {lane} = action.payload;
+        
+        return lanes.concat(lane);
+    },
 
-    [UPDATE_LANE]: (lanes: Array<ILane>, action: IUpdateLaneAction) => (
-        lanes.map(lane => {
-            if (lane.id === action.payload.id) {
-                lane.name = action.payload.name;
+    [UPDATE_LANE]: function (lanes: ILane[], action: IUpdateLaneAction): ILane[] {
+        const {id, name} = action.payload;
+        
+        return lanes.map(lane => {
+            if (lane.id === id) {
+                lane.name = name;
             }
             return lane;
-        })
-    ),
+        });
+    },
 
-    [DELETE_LANE]: (lanes: Array<ILane>, action: IDeleteLaneAction) => (
-        lanes.filter(lane => lane.id !== action.payload.id)
-    ),
+    [DELETE_LANE]: function (lanes: ILane[], action: IDeleteLaneAction): ILane[] {
+        const {id} = action.payload;
+        
+        return lanes.filter(lane => lane.id !== id);
+    },
 
-    [ATTACH_TO_LANE]: (lanes: Array<ILane>, action: IAttachToLaneAction) => (
-        lanes.map(lane => {
-            if (lane.id === action.payload.laneId) {
-                if (lane.noteIds.indexOf(action.payload.noteId) > -1) {
-                    console.warn("Already attached note to lane", lanes);
-                } else {
-                    lane.noteIds.push(action.payload.noteId);
-                }
+    [ATTACH_TO_LANE]: function (lanes: ILane[], action: IAttachToLaneAction): ILane[] {
+        const {laneId, noteId} = action.payload;
+
+        return lanes.map(lane => {
+            if (lane.noteIds.indexOf(noteId) > -1) {
+                lane.noteIds = lane.noteIds.filter(id => id !== noteId);
+            }
+            if (lane.id === laneId) {
+                lane.noteIds = lane.noteIds.concat(noteId);
             }
             return lane;
-        })
-    ),
+        });
+    },
 
-    [DETACH_FROM_LANE]: (lanes: Array<ILane>, action: IDetachFromLaneAction) => (
-        lanes.map(lane => {
-            if (lane.id === action.payload.laneId) {
-                lane.noteIds = lane.noteIds.filter(id => id != action.payload.noteId);
+    [DETACH_FROM_LANE]: function (lanes: ILane[], action: IDetachFromLaneAction): ILane[] {
+        const {laneId, noteId} = action.payload;
+        
+        return lanes.map(lane => {
+            if (lane.id === laneId) {
+                lane.noteIds = lane.noteIds.filter(id => id != noteId);
             }
             return lane;
-        })
-    ),
+        });
+    },
 }, []);
 

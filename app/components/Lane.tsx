@@ -11,7 +11,7 @@ import {attachToLane, updateLane, deleteLane} from "../actions/laneActions";
 interface ILaneProps {
     id: string;
     name: string;
-    notes: Array<INote>;
+    notes: INote[];
     dispatch?: Dispatch;
 }
 

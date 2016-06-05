@@ -4,8 +4,8 @@ import {Lane} from "./Lane";
 import {INote} from "../models/INote";
 
 interface ILanesProps {
-    lanes: Array<ILane>;
-    notes: Array<INote>;
+    lanes: ILane[];
+    notes: INote[];
 }
 
 export class Lanes extends React.Component<ILanesProps, {}> {

@@ -6,7 +6,7 @@ import {Editable} from "./Editable";
 import {updateNote, deleteNote} from "../actions/noteActions";
 
 interface INotesProps {
-    notes: Array<INote>;
+    notes: INote[];
     dispatch?: Dispatch;
 }
 
