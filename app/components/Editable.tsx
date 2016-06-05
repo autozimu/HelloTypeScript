@@ -4,7 +4,7 @@ interface IEditableProps {
     id: string;
     value: string;
     onUpdate: (id: string, value: string) => void;
-    onDelete?: (id: string) => void;
+    onDelete: (id: string) => void;
 }
 
 interface IEditableStates {
@@ -41,14 +41,14 @@ export class Editable extends React.Component<IEditableProps, IEditableStates> {
         );
     }
 
-    renderDelete = () => {
+    renderDelete() {
         return (
             <button className="delete"
                     onClick={() => this.props.onDelete(this.props.id)}>
                 x
             </button>
         );
-    };
+    }
 
     render() {
         if (this.state.editing) {
@@ -64,18 +64,18 @@ export class Editable extends React.Component<IEditableProps, IEditableStates> {
         });
     }
 
-    checkEnter(e) {
+    checkEnter(e: React.KeyboardEvent) {
         if (e.key === "Enter") {
             this.finishEdit(e);
         }
     }
 
-    finishEdit(e) {
+    finishEdit(e: React.SyntheticEvent) {
         this.setState({
             editing: false
         });
 
-        const value = e.target.value;
+        const value = (e.target as HTMLInputElement).value;
 
         if (!value) {
             return;

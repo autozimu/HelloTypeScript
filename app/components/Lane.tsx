@@ -15,22 +15,26 @@ interface ILaneProps {
     dispatch?: Dispatch;
 }
 
-@connect()
-export class Lane extends React.Component<ILaneProps, {}> {
+class LaneComponent extends React.Component<ILaneProps, {}> {
     constructor(props: ILaneProps) {
         super(props);
     }
 
     createNote() {
+        const dispatch = this.props.dispatch!;
+        
         const note = {
             id: uuid.v4(),
             task: "New task"
         };
-        this.props.dispatch(createNote(note.id, note.task));
-        this.props.dispatch(attachToLane(this.props.id, note.id));
+        
+        dispatch(createNote(note.id, note.task));
+        dispatch(attachToLane(this.props.id, note.id));
     }
 
     render() {
+        const dispatch = this.props.dispatch!;
+        
         return (
             <div className="lane">
                 <div className="lane-header">
@@ -42,11 +46,12 @@ export class Lane extends React.Component<ILaneProps, {}> {
                     <div className="lane-name">
                         <Editable id={this.props.id}
                                   value={this.props.name}
-                                  onUpdate={(id, name) => this.props.dispatch(updateLane(id, name))}
+                                  onUpdate={(id, name) => dispatch(updateLane(id, name))}
+                                  onDelete={(id) => dispatch(deleteLane(this.props.id))}
                         />
                     </div>
                     <div className="lane-delete">
-                        <button onClick={() => this.props.dispatch(deleteLane(this.props.id))}>
+                        <button onClick={() => dispatch(deleteLane(this.props.id))}>
                             x
                         </button>
                     </div>
@@ -56,3 +61,5 @@ export class Lane extends React.Component<ILaneProps, {}> {
         );
     }
 }
+
+export const Lane = connect()(LaneComponent);

@@ -4,13 +4,12 @@ import {connect} from "react-redux";
 import {ILane} from "../models/ILane";
 import {Lanes} from "../components/Lanes";
 import {INote} from "../models/INote";
-import {IState} from "../models/IState";
 import {createLane} from "../actions/laneActions";
 
 interface IAppProps {
     lanes: Array<ILane>;
     notes: Array<INote>;
-    dispatch?: Dispatch;
+    dispatch: Dispatch;
 }
 
 class AppComponent extends React.Component<IAppProps, {}> {
@@ -35,5 +34,5 @@ class AppComponent extends React.Component<IAppProps, {}> {
 }
 
 export const App = connect(
-    (state: IState) => state
+    state => state
 )(AppComponent);

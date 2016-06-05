@@ -10,23 +10,26 @@ interface INotesProps {
     dispatch?: Dispatch;
 }
 
-@connect()
-export class Notes extends React.Component<INotesProps, {}> {
+class NotesComponent extends React.Component<INotesProps, {}> {
     constructor(props: INotesProps) {
         super(props);
     }
 
     render() {
+        const dispatch = this.props.dispatch!;
+        
         return (
             <ul className="notes">{this.props.notes.map(note =>
                 <li className="note" key={note.id}>
                     <Editable id={note.id}
                               value={note.task}
-                              onUpdate={(id, task) => this.props.dispatch(updateNote(id, task))}
-                              onDelete={(id) => this.props.dispatch(deleteNote(id))}
+                              onUpdate={(id, task) => dispatch(updateNote(id, task))}
+                              onDelete={(id) => dispatch(deleteNote(id))}
                     />
                 </li>
             )}</ul>
         );
     }
 }
+
+export const Notes = connect()(NotesComponent);

@@ -1,4 +1,3 @@
-import * as uuid from "node-uuid";
 import {IAction} from "./IAction";
 
 export const CREATE_NOTE = "create note";
@@ -8,7 +7,7 @@ export interface ICreateNoteAction extends IAction {
         task: string;
     }
 }
-export function createNote(id, task): ICreateNoteAction {
+export function createNote(id: string, task: string): ICreateNoteAction {
     return {
         type: CREATE_NOTE,
         payload: {id, task}
