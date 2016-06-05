@@ -21,10 +21,9 @@ class NotesComponent extends React.Component<Props, {}> {
         return (
             <ul className="notes">{this.props.notes.map(note =>
                 <li className="note" key={note.id}>
-                    <Editable id={note.id}
-                              value={note.task}
-                              onUpdate={(id, task) => dispatch(updateNote(id, task))}
-                              onDelete={(id) => dispatch(deleteNote(id))}
+                    <Editable value={note.task}
+                              onUpdate={(task) => dispatch(updateNote(note.id, task))}
+                              onDelete={() => dispatch(deleteNote(note.id))}
                     />
                 </li>
             )}</ul>

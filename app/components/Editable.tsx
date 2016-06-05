@@ -1,10 +1,9 @@
 import * as React from "react";
 
 interface Props {
-    id: string;
     value: string;
-    onUpdate: (id: string, value: string) => void;
-    onDelete: (id: string) => void;
+    onUpdate(value: string);
+    onDelete();
 }
 
 interface States {
@@ -18,44 +17,6 @@ export class Editable extends React.Component<Props, States> {
         this.state = {
             editing: false
         };
-    }
-
-    renderEdit() {
-        return (
-            <input type="text"
-                   ref={(e) => e ? e.selectionStart = this.props.value.length : null}
-                   autoFocus={true}
-                   defaultValue={this.props.value}
-                   onKeyPress={(e) => this.checkEnter(e)}
-                   onBlur={(e) => this.finishEdit(e)}>
-            </input>
-        );
-    }
-
-    renderValue() {
-        return (
-            <div onClick={() => this.click()}>
-                <span className="value">{this.props.value}</span>
-                {this.props.onDelete ? this.renderDelete() : null}
-            </div>
-        );
-    }
-
-    renderDelete() {
-        return (
-            <button className="delete"
-                    onClick={() => this.props.onDelete(this.props.id)}>
-                x
-            </button>
-        );
-    }
-
-    render() {
-        if (this.state.editing) {
-            return this.renderEdit();
-        } else {
-            return this.renderValue();
-        }
     }
 
     click() {
@@ -81,6 +42,43 @@ export class Editable extends React.Component<Props, States> {
             return;
         }
 
-        this.props.onUpdate(this.props.id, value);
+        this.props.onUpdate(value);
+    }
+
+    renderEdit() {
+        return (
+            <input type="text"
+                   autoFocus={true}
+                   defaultValue={this.props.value}
+                   onKeyPress={(e) => this.checkEnter(e)}
+                   onBlur={(e) => this.finishEdit(e)}>
+            </input>
+        );
+    }
+
+    renderValue() {
+        return (
+            <div onClick={() => this.click()}>
+                <span className="value">{this.props.value}</span>
+                {this.props.onDelete ? this.renderDelete() : null}
+            </div>
+        );
+    }
+
+    renderDelete() {
+        return (
+            <button className="delete"
+                    onClick={() => this.props.onDelete()}>
+                x
+            </button>
+        );
+    }
+
+    render() {
+        if (this.state.editing) {
+            return this.renderEdit();
+        } else {
+            return this.renderValue();
+        }
     }
 }

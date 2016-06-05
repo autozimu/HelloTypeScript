@@ -47,9 +47,8 @@ class LaneComponent extends React.Component<Props, {}> {
                         </button>
                     </div>
                     <div className="lane-name">
-                        <Editable id={id}
-                                  value={name}
-                                  onUpdate={(id, name) => dispatch(updateLane(id, name))}
+                        <Editable value={name}
+                                  onUpdate={(name) => dispatch(updateLane(id, name))}
                                   onDelete={() => dispatch(deleteLane(id))}
                         />
                     </div>
