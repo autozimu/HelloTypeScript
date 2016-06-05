@@ -5,13 +5,13 @@ import {INote} from "../models/INote";
 import {Editable} from "./Editable";
 import {updateNote, deleteNote} from "../actions/noteActions";
 
-interface INotesProps {
+interface Props {
     notes: INote[];
     dispatch?: Dispatch;
 }
 
-class NotesComponent extends React.Component<INotesProps, {}> {
-    constructor(props: INotesProps) {
+class NotesComponent extends React.Component<Props, {}> {
+    constructor(props: Props) {
         super(props);
     }
 

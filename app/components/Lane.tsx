@@ -4,19 +4,20 @@ import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {Notes} from "./Notes";
 import {Editable} from "./Editable";
-import {INote} from "../models/INote";
 import {createNote} from "../actions/noteActions";
 import {attachToLane, updateLane, deleteLane} from "../actions/laneActions";
+import {ILane} from "../models/ILane";
+import {IState} from "../models/IState";
+import {INote} from "../models/INote";
 
-interface ILaneProps {
-    id: string;
-    name: string;
-    notes: INote[];
+interface Props {
+    lane: ILane;
+    notes?: INote[];
     dispatch?: Dispatch;
 }
 
-class LaneComponent extends React.Component<ILaneProps, {}> {
-    constructor(props: ILaneProps) {
+class LaneComponent extends React.Component<Props, {}> {
+    constructor(props: Props) {
         super(props);
     }
 
@@ -29,11 +30,13 @@ class LaneComponent extends React.Component<ILaneProps, {}> {
         };
         
         dispatch(createNote(note.id, note.task));
-        dispatch(attachToLane(this.props.id, note.id));
+        dispatch(attachToLane(this.props.lane.id, note.id));
     }
 
     render() {
+        const {id, name} = this.props.lane;
         const dispatch = this.props.dispatch!;
+        const notes = this.props.notes!;
         
         return (
             <div className="lane">
@@ -44,22 +47,29 @@ class LaneComponent extends React.Component<ILaneProps, {}> {
                         </button>
                     </div>
                     <div className="lane-name">
-                        <Editable id={this.props.id}
-                                  value={this.props.name}
+                        <Editable id={id}
+                                  value={name}
                                   onUpdate={(id, name) => dispatch(updateLane(id, name))}
-                                  onDelete={(id) => dispatch(deleteLane(this.props.id))}
+                                  onDelete={() => dispatch(deleteLane(id))}
                         />
                     </div>
                     <div className="lane-delete">
-                        <button onClick={() => dispatch(deleteLane(this.props.id))}>
+                        <button onClick={() => dispatch(deleteLane(id))}>
                             x
                         </button>
                     </div>
                 </div>
-                <Notes notes={this.props.notes} />
+                <Notes notes={notes} />
             </div>
         );
     }
 }
 
-export const Lane = connect()(LaneComponent);
+export const Lane = connect(
+    function (state: IState, ownProps: Props): Props {
+        return {
+            lane: ownProps.lane,
+            notes: state.notes.filter(note => ownProps.lane.noteIds.indexOf(note.id) > -1)
+        }
+    }
+)(LaneComponent);

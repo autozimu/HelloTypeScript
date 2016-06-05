@@ -1,18 +1,18 @@
 import * as React from "react";
 
-interface IEditableProps {
+interface Props {
     id: string;
     value: string;
     onUpdate: (id: string, value: string) => void;
     onDelete: (id: string) => void;
 }
 
-interface IEditableStates {
+interface States {
     editing: boolean;
 }
 
-export class Editable extends React.Component<IEditableProps, IEditableStates> {
-    constructor(props: IEditableProps) {
+export class Editable extends React.Component<Props, States> {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
