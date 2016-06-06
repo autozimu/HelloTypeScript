@@ -1,7 +1,9 @@
 import * as uuid from "node-uuid";
 import * as React from "react";
-import {Dispatch} from "redux";
+import {compose} from "redux";
 import {connect} from "react-redux";
+import {DropTarget, ConnectDropTarget} from 'react-dnd';
+
 import {Notes} from "./Notes";
 import {Editable} from "./Editable";
 import {createNote} from "../actions/noteActions";
@@ -9,11 +11,13 @@ import {attachToLane, updateLane, deleteLane} from "../actions/laneActions";
 import {ILane} from "../models/ILane";
 import {IState} from "../models/IState";
 import {INote} from "../models/INote";
+import {ItemTypes} from '../constants/ItemTypes';
+import {dispatch} from '../store';
 
 interface Props {
     lane: ILane;
     notes?: INote[];
-    dispatch?: Dispatch;
+    connectDropTarget: ConnectDropTarget;
 }
 
 class LaneComponent extends React.Component<Props, {}> {
@@ -22,8 +26,6 @@ class LaneComponent extends React.Component<Props, {}> {
     }
 
     createNote() {
-        const dispatch = this.props.dispatch!;
-        
         const note = {
             id: uuid.v4(),
             task: "New task"
@@ -34,11 +36,10 @@ class LaneComponent extends React.Component<Props, {}> {
     }
 
     render() {
-        const {id, name} = this.props.lane;
-        const dispatch = this.props.dispatch!;
+        const {lane, connectDropTarget} = this.props;
         const notes = this.props.notes!;
         
-        return (
+        return connectDropTarget(
             <div className="lane">
                 <div className="lane-header">
                     <div className="lane-add-note">
@@ -47,12 +48,12 @@ class LaneComponent extends React.Component<Props, {}> {
                         </button>
                     </div>
                     <div className="lane-name">
-                        <Editable value={name}
-                                  onUpdate={(name) => dispatch(updateLane(id, name))}
+                        <Editable value={lane.name}
+                                  onUpdate={(name) => dispatch(updateLane(lane.id, name))}
                         />
                     </div>
                     <div className="lane-delete">
-                        <button onClick={() => dispatch(deleteLane(id))}>
+                        <button onClick={() => dispatch(deleteLane(lane.id))}>
                             x
                         </button>
                     </div>
@@ -63,11 +64,28 @@ class LaneComponent extends React.Component<Props, {}> {
     }
 }
 
-export const Lane = connect(
-    function (state: IState, ownProps: Props): Props {
-        return {
-            lane: ownProps.lane,
-            notes: state.notes.filter(note => ownProps.lane.noteIds.indexOf(note.id) > -1)
+const noteTarget = {
+    hover(targetProps: Props, monitor) {
+        const sourceId = monitor.getItem().id;
+
+        if (targetProps.lane.noteIds.indexOf(sourceId) <= -1) {
+            const laneId = targetProps.lane.id;
+            
+            console.log(targetProps);
+            dispatch(attachToLane(laneId, sourceId));
         }
     }
+};
+
+export const Lane = compose(
+    DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
+        connectDropTarget: connect.dropTarget()
+    })),
+    connect(
+        function (state: IState, ownProps: Props) {
+            return {
+                notes: state.notes.filter(note => ownProps.lane.noteIds.indexOf(note.id) > -1)
+            }
+        }
+    )
 )(LaneComponent);

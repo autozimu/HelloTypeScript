@@ -20,3 +20,5 @@ export const store = compose(
     appReducer,
     JSON.parse(localStorage.getItem(storeName)) || {}
 );
+
+export const dispatch = store.dispatch;

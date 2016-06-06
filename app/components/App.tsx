@@ -1,10 +1,11 @@
 import * as React from "react";
-import {Dispatch, compose} from "redux";
+import {compose} from "redux";
 import {connect} from "react-redux";
 import {DragDropContext} from 'react-dnd';
 import * as HTML5Backend from 'react-dnd-html5-backend';
 
 
+import {dispatch} from '../store';
 import {ILane} from "../models/ILane";
 import {Lanes} from "../components/Lanes";
 import {createLane} from "../actions/laneActions";
@@ -12,7 +13,6 @@ import {IState} from "../models/IState";
 
 interface Props {
     lanes?: ILane[];
-    dispatch?: Dispatch;
 }
 
 class AppComponent extends React.Component<Props, {}> {
@@ -22,7 +22,6 @@ class AppComponent extends React.Component<Props, {}> {
 
     render() {
         const lanes = this.props.lanes!;
-        const dispatch = this.props.dispatch!;
         
         return (
             <div>
