@@ -6,6 +6,7 @@ import {Note} from './Note';
 import {INote} from '../models/INote';
 import {updateNote, deleteNote} from '../actions/noteActions';
 import {Editable} from './Editable';
+import {move} from "../actions/laneActions";
 
 interface Props {
     notes: INote[];
@@ -23,7 +24,8 @@ class NotesComponent extends React.Component<Props, {}> {
         return (
             <ul className="notes">{this.props.notes.map(note =>
                 <li key={note.id}>
-                    <Note>
+                    <Note id={note.id}
+                          onMove={(sourceId, targetId) => dispatch(move(sourceId, targetId))}>
                         <Editable value={note.task}
                                   onUpdate={(task) => dispatch(updateNote(note.id, task))}
                         />

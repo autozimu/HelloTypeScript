@@ -85,3 +85,20 @@ export function detachFromLane(laneId: string, noteId: string): IDetachFromLaneA
         }
     };
 }
+
+export const MOVE = 'MOVE';
+export interface IMoveAction extends IAction {
+    payload: {
+        sourceId: string;
+        targetId: string;
+    }
+}
+export function move(sourceId, targetId): IMoveAction {
+    return {
+        type: MOVE,
+        payload: {
+            sourceId,
+            targetId
+        }
+    };
+}

@@ -1,11 +1,14 @@
 import {handleActions} from "redux-actions";
+import * as update from 'react-addons-update';
+
 import {ILane} from "../models/ILane";
 import {
     CREATE_LANE, ICreateLaneAction,
     UPDATE_LANE, IUpdateLaneAction,
     DELETE_LANE, IDeleteLaneAction,
     ATTACH_TO_LANE, IAttachToLaneAction,
-    DETACH_FROM_LANE, IDetachFromLaneAction
+    DETACH_FROM_LANE, IDetachFromLaneAction,
+    MOVE, IMoveAction
 } from "../actions/laneActions";
 
 export const laneReducer = handleActions({
@@ -56,5 +59,27 @@ export const laneReducer = handleActions({
             return lane;
         });
     },
+    
+    [MOVE]: function (lanes: ILane[], action: IMoveAction): ILane[] {
+        const {sourceId, targetId} = action.payload;
+        const sourceLane = lanes.filter(lane => lane.noteIds.indexOf(sourceId) > -1)[0];
+        const targetLane = lanes.filter(lane => lane.noteIds.indexOf(targetId) > -1)[0];
+        const sourceNoteIndex = sourceLane.noteIds.indexOf(sourceId);
+        const targetNoteIndex = targetLane.noteIds.indexOf(targetId);
+        
+        console.log(sourceLane.name, sourceId, targetLane.name, targetId);
+
+        if (sourceLane === targetLane) {
+            sourceLane.noteIds[sourceNoteIndex] = targetId;
+            sourceLane.noteIds[targetNoteIndex] = sourceId;
+        } else {
+            sourceLane.noteIds.splice(sourceNoteIndex, 1);
+            targetLane.noteIds.splice(targetNoteIndex, 0, sourceId);
+        }
+        
+        return lanes;
+    }
+    
+    
 }, []);
 
