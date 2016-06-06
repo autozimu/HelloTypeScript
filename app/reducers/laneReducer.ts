@@ -67,16 +67,18 @@ export const laneReducer = handleActions({
         const sourceNoteIndex = sourceLane.noteIds.indexOf(sourceId);
         const targetNoteIndex = targetLane.noteIds.indexOf(targetId);
         
-        console.log(sourceLane.name, sourceId, targetLane.name, targetId);
-
         if (sourceLane === targetLane) {
-            sourceLane.noteIds[sourceNoteIndex] = targetId;
-            sourceLane.noteIds[targetNoteIndex] = sourceId;
+            sourceLane.noteIds = update(sourceLane.noteIds, {
+                $splice: [
+                    [sourceNoteIndex, 1],
+                    [targetNoteIndex, 0, sourceId]
+                ]
+            });
         } else {
             sourceLane.noteIds.splice(sourceNoteIndex, 1);
             targetLane.noteIds.splice(targetNoteIndex, 0, sourceId);
         }
-        
+
         return lanes;
     }
     

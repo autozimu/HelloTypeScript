@@ -26,7 +26,7 @@ class NoteComponent extends React.Component<Props, {}> {
         return compose(connectDragSource, connectDropTarget)(
             <div className="note"
                  style={{
-                    opacity: isDragging || isOver ? 0 : 1
+                    opacity: isDragging || isOver ? 0.5 : 1
                  }}>
                 {children}
             </div>

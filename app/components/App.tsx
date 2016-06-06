@@ -10,9 +10,11 @@ import {ILane} from "../models/ILane";
 import {Lanes} from "../components/Lanes";
 import {createLane} from "../actions/laneActions";
 import {IState} from "../models/IState";
+import {INote} from "../models/INote";
 
 interface Props {
     lanes?: ILane[];
+    notes?: INote[];
 }
 
 class AppComponent extends React.Component<Props, {}> {
@@ -22,6 +24,7 @@ class AppComponent extends React.Component<Props, {}> {
 
     render() {
         const lanes = this.props.lanes!;
+        const notes = this.props.notes!;
         
         return (
             <div>
@@ -30,7 +33,7 @@ class AppComponent extends React.Component<Props, {}> {
                     +
                 </button>
 
-                <Lanes lanes={lanes} />
+                <Lanes lanes={lanes} notes={notes} />
             </div>
         );
     }
@@ -39,9 +42,10 @@ class AppComponent extends React.Component<Props, {}> {
 export const App = compose(
     DragDropContext(HTML5Backend),
     connect(
-        function (state: IState, ownProps: Props): Props {
+        function (state: IState): Props {
             return {
-                lanes: state.lanes
+                lanes: state.lanes,
+                notes: state.notes
             };
         }
     )
