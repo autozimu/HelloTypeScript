@@ -1,6 +1,10 @@
 import * as React from "react";
-import {Dispatch} from "redux";
+import {Dispatch, compose} from "redux";
 import {connect} from "react-redux";
+import {DragDropContext} from 'react-dnd';
+import * as HTML5Backend from 'react-dnd-html5-backend';
+
+
 import {ILane} from "../models/ILane";
 import {Lanes} from "../components/Lanes";
 import {createLane} from "../actions/laneActions";
@@ -33,10 +37,13 @@ class AppComponent extends React.Component<Props, {}> {
     }
 }
 
-export const App = connect(
-    function (state: IState, ownProps: Props): Props {
-        return {
-            lanes: state.lanes
-        };
-    }
+export const App = compose(
+    DragDropContext(HTML5Backend),
+    connect(
+        function (state: IState, ownProps: Props): Props {
+            return {
+                lanes: state.lanes
+            };
+        }
+    )
 )(AppComponent);
