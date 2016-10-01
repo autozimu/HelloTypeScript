@@ -25,7 +25,7 @@ class AppComponent extends React.Component<Props, {}> {
     render() {
         const lanes = this.props.lanes!;
         const notes = this.props.notes!;
-        
+
         return (
             <div>
                 <button className="add-lane"
