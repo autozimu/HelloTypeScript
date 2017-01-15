@@ -15,7 +15,7 @@ export class Lanes extends React.Component<Props, {}> {
 
     render() {
         const {lanes, notes} = this.props;
-        
+
         return (
             <div className="lanes">
                 {lanes.map(lane => {

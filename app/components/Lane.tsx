@@ -27,7 +27,7 @@ class LaneComponent extends React.Component<Props, {}> {
             id: uuid.v4(),
             task: "New task"
         };
-        
+
         dispatch(createNote(note.id, note.task));
         dispatch(attachToLane(this.props.lane.id, note.id));
     }
@@ -35,7 +35,7 @@ class LaneComponent extends React.Component<Props, {}> {
     render() {
         const {lane, notes} = this.props;
         const connectDropTarget = this.props.connectDropTarget!;
-        
+
         return connectDropTarget(
             <div className="lane">
                 <div className="lane-header">
@@ -67,7 +67,7 @@ const noteTarget = {
 
         if (targetProps.lane.noteIds.indexOf(sourceId) <= -1) {
             const laneId = targetProps.lane.id;
-            
+
             console.log(targetProps);
             dispatch(attachToLane(laneId, sourceId));
         }
@@ -80,4 +80,4 @@ export const Lane = DropTarget(
     connect => ({
         connectDropTarget: connect.dropTarget()
     })
-)(LaneComponent);
+)(LaneComponent) as React.ComponentClass<Props>;

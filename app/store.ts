@@ -18,7 +18,7 @@ export const store = compose(
     window["devToolsExtension"] ? window["devToolsExtension"]() : f => f
 )(createStore)(
     appReducer,
-    JSON.parse(localStorage.getItem(storeName)) || {}
+    JSON.parse(localStorage.getItem(storeName)!) || {}
 );
 
 export const dispatch = store.dispatch;
