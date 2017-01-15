@@ -51,7 +51,7 @@ const noteTarget = {
         const targetId = targetProps.id;
         const sourceProps = (monitor.getItem() as DnDItem);
         const sourceId = sourceProps.id;
-        
+
         if (sourceId !== targetId) {
             targetProps.onMove(sourceId, targetId);
         }
@@ -68,4 +68,4 @@ export const Note = compose(
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver()
     }))
-)(NoteComponent);
+)(NoteComponent) as React.ComponentClass<Props>;

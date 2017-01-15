@@ -10,7 +10,6 @@
     "strictNullChecks": true
   },
   "files": [
-    "typings/index.d.ts",
     "app/index.tsx"
   ]
 }

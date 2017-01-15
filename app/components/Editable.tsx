@@ -24,13 +24,13 @@ export class Editable extends React.Component<Props, States> {
         });
     }
 
-    checkEnter(e: React.KeyboardEvent) {
+    checkEnter(e: React.KeyboardEvent<any>) {
         if (e.key === "Enter") {
             this.finishEdit(e);
         }
     }
 
-    finishEdit(e: React.SyntheticEvent) {
+    finishEdit(e: React.SyntheticEvent<any>) {
         this.setState({
             editing: false
         });
