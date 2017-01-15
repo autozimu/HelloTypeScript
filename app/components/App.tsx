@@ -1,16 +1,16 @@
 import * as React from "react";
-import {compose} from "redux";
-import {connect} from "react-redux";
-import {DragDropContext} from 'react-dnd';
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { DragDropContext } from 'react-dnd';
 import * as HTML5Backend from 'react-dnd-html5-backend';
 
 
-import {dispatch} from '../store';
-import {ILane} from "../models/ILane";
-import {Lanes} from "../components/Lanes";
-import {createLane} from "../actions/laneActions";
-import {IState} from "../models/IState";
-import {INote} from "../models/INote";
+import { dispatch } from '../store';
+import { ILane } from "../models/ILane";
+import { Lanes } from "../components/Lanes";
+import { createLane } from "../actions/laneActions";
+import { IState } from "../models/IState";
+import { INote } from "../models/INote";
 
 interface Props {
     lanes?: ILane[];
@@ -29,7 +29,7 @@ class AppComponent extends React.Component<Props, {}> {
         return (
             <div>
                 <button className="add-lane"
-                        onClick={() => dispatch(createLane())}>
+                    onClick={() => dispatch(createLane())}>
                     +
                 </button>
 
@@ -49,4 +49,4 @@ export const App = compose(
             };
         }
     )
-)(AppComponent);
+)(AppComponent) as React.ComponentClass<Props>;

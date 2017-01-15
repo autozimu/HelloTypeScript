@@ -1,5 +1,5 @@
-import {createStore, compose, applyMiddleware} from "redux";
-import {appReducer} from "./reducers/appReducer";
+import { createStore, applyMiddleware, compose } from "redux";
+import { appReducer } from "./reducers/appReducer";
 
 const storeName = "kanban";
 
@@ -11,14 +11,16 @@ const localStorageMiddleware = ({getState}) => {
     };
 };
 
-export const store = compose(
-    applyMiddleware(
-        localStorageMiddleware
-    ),
-    window["devToolsExtension"] ? window["devToolsExtension"]() : f => f
-)(createStore)(
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
+
+export const store = createStore(
     appReducer,
-    JSON.parse(localStorage.getItem(storeName)!) || {}
+    JSON.parse(localStorage.getItem(storeName) !) || {},
+    composeEnhancers(
+        applyMiddleware(
+            localStorageMiddleware
+        )
+    )
 );
 
 export const dispatch = store.dispatch;
